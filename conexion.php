@@ -16,14 +16,15 @@ class conexion
         }
     }
 
-    public function ejecutar($sql)
+    public function ejecutar($sql) //Se ejecuta la instrucción sql y sirve para Inertar/Eliminar/Actualizar
     {
-        $this->conexion->exec($sql); //Se ejecuta la instrucción sql.
+        $this->conexion->exec($sql);
         return $this->conexion->lastInsertId(); //retorna el id insertado.
     }
     public function consulta($sql)
     {
-        $resultado = $this->conexion->query($sql);
-        return $resultado->fetchAll(PDO::FETCH_ASSOC); //Devuelve un array asociativo.
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->execute();
+        return $sentencia->fetchAll();
     }
 }
