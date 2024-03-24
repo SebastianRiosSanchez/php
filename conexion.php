@@ -21,10 +21,10 @@ class conexion
         $this->conexion->exec($sql);
         return $this->conexion->lastInsertId(); //retorna el id insertado.
     }
-    public function consulta($sql)
+    public function consultar($sql)
     {
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->execute();
-        return $sentencia->fetchAll();
+        return $sentencia->fetchAll(); //El método fetchAll retorna todos los registros que puedan modificarse con la sentencia SQL
     }
 }

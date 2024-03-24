@@ -1,22 +1,25 @@
 <?php include("cabecera.php"); ?>
 <?php include("conexion.php"); ?>
 <?php
+
 $objConexion = new conexion();
 if ($_POST) {
     print_r($_POST);
 
     $nombre = $_POST['txtNombre'];
     $descripcion = $_POST['txtDescripcion'];
-    $imagen = $_FILES['txtArchivo'];
-    $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', 'imagen', ' $descripcion' ); ";
+    $imagen = $_FILES['txtArchivo']['name'];
+    $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', '$imagen', ' $descripcion' ); ";
     $objConexion->ejecutar($sql);
 }
 if ($_GET) {
-    //DELETE FROM proyectos WHERE `proyectos`.`id` = 37
+    $id = $_GET['borrar'];
+    $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
+    $objConexion->ejecutar($sql);
 }
 
 $sqlSelect = "SELECT * FROM `proyectos`";
-$proyectos = $objConexion->consulta($sqlSelect);
+$proyectos = $objConexion->consultar($sqlSelect);
 
 ?>
 <br />
