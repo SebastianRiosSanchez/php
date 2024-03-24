@@ -8,7 +8,8 @@ if ($_POST) {
 
     $nombre = $_POST['txtNombre'];
     $descripcion = $_POST['txtDescripcion'];
-    $nombreImagen = $_FILES['txtArchivo']['name'];
+    $fecha = new DateTime();
+    $nombreImagen = $fecha->getTimestamp() . "_" . $_FILES['txtArchivo']['name'];
     $imagenTemporal = $_FILES['txtArchivo']['tmp_name'];
     move_uploaded_file($imagenTemporal, "img/" . $nombreImagen);
     $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', '$nombreImagen', ' $descripcion' ); ";
