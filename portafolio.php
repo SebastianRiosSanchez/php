@@ -8,8 +8,10 @@ if ($_POST) {
 
     $nombre = $_POST['txtNombre'];
     $descripcion = $_POST['txtDescripcion'];
-    $imagen = $_FILES['txtArchivo']['name'];
-    $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', '$imagen', ' $descripcion' ); ";
+    $nombreImagen = $_FILES['txtArchivo']['name'];
+    $imagenTemporal = $_FILES['txtArchivo']['tmp_name'];
+    move_uploaded_file($imagenTemporal, "img/" . $nombreImagen);
+    $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', '$nombreImagen', ' $descripcion' ); ";
     $objConexion->ejecutar($sql);
 }
 if ($_GET) {
