@@ -12,6 +12,7 @@ if ($_POST) {
     move_uploaded_file($imagenTemporal, "img/" . $nombreImagen);
     $sql = "insert into `proyectos`(`nombre`, `imagen`, `descripcion`) VALUES( '$nombre', '$nombreImagen', ' $descripcion' ); ";
     $objConexion->ejecutar($sql);
+    header("location:portafolio.php");
 }
 if ($_GET) {
     $id = $_GET['borrar'];
@@ -20,6 +21,7 @@ if ($_GET) {
     unlink("img/" . $imagen['imagen']);
     $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
     $objConexion->ejecutar($sql);
+    header("location:portafolio.php");
 }
 
 $sqlSelect = "SELECT * FROM `proyectos`";
@@ -35,11 +37,11 @@ $proyectos = $objConexion->consultar($sqlSelect);
                 <div class="card-body">
                     <form action="portafolio.php" method="post" enctype="multipart/form-data">
                         Nombre del proyecto:
-                        <input class="form-control" type="text" name="txtNombre"><br />
+                        <input required class="form-control" type="text" name="txtNombre"><br />
                         Imágen del proyecto:
-                        <input class="form-control" type="file" name="txtArchivo"><br />
+                        <input required class="form-control" type="file" name="txtArchivo"><br />
                         Descripción:
-                        <textarea class="form-control" name="txtDescripcion" id="" rows="3"></textarea>
+                        <textarea required class="form-control" name="txtDescripcion" id="" rows="3"></textarea>
                         <br />
                         <input class="btn btn-success" type="submit" value="Enviar Proyecto">
                     </form>
