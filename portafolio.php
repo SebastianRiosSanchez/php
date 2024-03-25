@@ -4,8 +4,6 @@
 
 $objConexion = new conexion();
 if ($_POST) {
-    print_r($_POST);
-
     $nombre = $_POST['txtNombre'];
     $descripcion = $_POST['txtDescripcion'];
     $fecha = new DateTime();
@@ -17,15 +15,11 @@ if ($_POST) {
 }
 if ($_GET) {
     $id = $_GET['borrar'];
-    echo ("el id a borrar es: " . $id);
     $sqlBuscaImagen = "SELECT imagen FROM proyectos WHERE id=" . $id; //SELECT imagen from proyectos where id = 41
     $imagen = $objConexion->consultar($sqlBuscaImagen);
     unlink("img/" . $imagen['imagen']);
-    echo ("Resultado de la consulta: ");
-    print_r($imagen);
-    // $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
-    // $objConexion->ejecutar($sql);
-
+    $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
+    $objConexion->ejecutar($sql);
 }
 
 $sqlSelect = "SELECT * FROM `proyectos`";
@@ -71,7 +65,9 @@ $proyectos = $objConexion->consultar($sqlSelect);
                             <tr class="">
                                 <td><?php echo  $proyecto['id']; ?></td>
                                 <td><?php echo  $proyecto['nombre']; ?></td>
-                                <td><?php echo  $proyecto['imagen']; ?></td>
+                                <td>
+                                    <img width="50" src="img/<?php echo  $proyecto['imagen']; ?>" alt="">
+                                </td>
                                 <td><?php echo  $proyecto['descripcion']; ?></td>
                                 <td> <a class="btn btn-danger" href="?borrar=<?php echo  $proyecto['id']; ?>">Eliminar</a>
                                 </td>
