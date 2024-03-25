@@ -17,8 +17,15 @@ if ($_POST) {
 }
 if ($_GET) {
     $id = $_GET['borrar'];
-    $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
-    $objConexion->ejecutar($sql);
+    echo ("el id a borrar es: " . $id);
+    $sqlBuscaImagen = "SELECT imagen FROM proyectos WHERE id=" . $id; //SELECT imagen from proyectos where id = 41
+    $imagen = $objConexion->consultar($sqlBuscaImagen);
+    unlink("img/" . $imagen['imagen']);
+    echo ("Resultado de la consulta: ");
+    print_r($imagen);
+    // $sql = "DELETE FROM proyectos WHERE `proyectos`.`id` =" . $id;
+    // $objConexion->ejecutar($sql);
+
 }
 
 $sqlSelect = "SELECT * FROM `proyectos`";
